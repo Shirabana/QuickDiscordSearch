@@ -16,33 +16,17 @@ import view.MainView;
 
 public class Program {
 	
-	private Save save;
+	private static Logger log = new Logger();
 	
 	public static void main(String[] args) {
 		
+		log.Info("Program booted.");
+		
+		// Initialize save model
 		Save sav = new Save();
 		
-		try {
-			String documentsPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
-			String directoryPath = documentsPath + "/QuickDiscordSearch/";
-			new File(directoryPath).mkdirs();
-			
-			String filePath = directoryPath + "keybind.txt";
-			
-			if (!(new File(filePath).exists())) {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-				writer.write("43");
-				writer.close();
-			}
-			else {
-				BufferedReader reader = new BufferedReader(new FileReader(filePath));
-				sav.setKeyBind(Integer.parseInt(reader.readLine()));
-				reader.close();
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		FileInitialization fi = new FileInitialization();
+		sav.setKeyBind(fi.Initialize());
 		
 		KeyAction ka = new KeyAction();
 		ka.KeyRun();
@@ -56,6 +40,7 @@ public class Program {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				log.Info("GUI loaded successfully.");
 			}
 		});
 		

@@ -4,12 +4,14 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 
+import main.Logger;
 import model.Save;
 
 public class MainController {
 	
 	private Save save = new Save();
 	private Robot robot = new Robot();
+	private Logger log = new Logger();
 	
 	public void SetSave(Save save) {
 		this.save = save;
@@ -23,7 +25,7 @@ public class MainController {
 		robot.setAutoDelay(40);
 	    robot.setAutoWaitForIdle(true);
 	    
-	    System.out.println("Macro actions");
+	    log.Info("Macro actions started.");
 	    
 	    // In order to search, Left Click x3, Right Click x1, Key down x2 and Key enter needs to be done
 	    LeftClick();
@@ -33,6 +35,8 @@ public class MainController {
 	    KeyInput(40); // 40 is key down
 	    KeyInput(40);
 	    KeyInput(10); // 10 is key enter
+	    
+	    log.Info("Macro actions ended.");
 	}
 
 	private void LeftClick() {
